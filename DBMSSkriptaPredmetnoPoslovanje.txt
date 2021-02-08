@@ -1,0 +1,149 @@
+create table dbo.Predmet(
+	IdPredmeta int identity(1,1) PRIMARY KEY,
+	DatumOtvaranja date not null,
+	VrstaPredmeta varchar(20) not null,
+	NazivPredmeta varchar(100) not null,
+	Napomena text not null,
+);
+
+
+
+create table dbo.Akt(
+	IdAkta int identity(1,1) PRIMARY KEY,
+	DatumPrijema date not null,
+	NazivAkta varchar(64) not null,
+	Posiljalac varchar(64) not null,
+	IdPredmeta int REFERENCES dbo.Predmet(IdPredmeta)
+);
+
+create table dbo.Radnik(
+	IdRadnika int identity(1,1) PRIMARY KEY,
+	ImeIPrezime varchar(64) not null,
+	Pozicija varchar(64) not null,
+	Sektor varchar(64) not null,
+	BrojTelefona varchar(64) not null,
+	DatumZaposljavanja date not null,
+);
+
+/*alter table dbo.Predmet add IdRadnika int not null;
+alter table dbo.Predmet
+add FOREIGN KEY (IdRadnika) REFERENCES dbo.Radnik(IdRadnika);*/
+
+create table dbo.ClassPredmetRadnikRelation (
+	IdPredmeta int not null,
+	IdRadnika int not null,
+	FOREIGN KEY (IdPredmeta) REFERENCES dbo.Predmet(IdPredmeta),
+	FOREIGN KEY (IdRadnika) REFERENCES dbo.Radnik(IdRadnika),
+	UNIQUE (IdPredmeta,IdRadnika)
+);
+
+
+insert into dbo.Predmet values('2021-01-23','javne nabavke','predmet br 1','napomena 1');
+insert into dbo.Predmet values('2021-02-22','upravni postupak','predmet br 2','napomena 2');
+
+select * from dbo.Predmet;
+
+insert into dbo.Akt values('2021-01-23','Akt 1','Posiljalac 1',1);
+insert into dbo.Akt values('2021-02-22','Akt 2','Posiljalac 2',2);
+
+select * from dbo.Akt;
+
+insert into dbo.Radnik values('Djordje Palavestra','Pozicija 1','Sektor 1','0038765198911','2021-02-26');
+insert into dbo.Radnik values('Sinisa Palavestra','Pozicija 2','Sektor 2','0038765855106','2021-02-12');
+
+select * from dbo.Radnik;
+
+insert into dbo.ClassPredmetRadnikRelation values(1,1);
+insert into dbo.ClassPredmetRadnikRelation values(2,2);
+
+select * from dbo.ClassPredmetRadnikRelation;
+
+/* da selektujem radnika koji je radio na nekom predmetu) */
+select * from dbo.Radnik where IdRadnika in 
+(select IdRadnika from dbo.ClassPredmetRadnikRelation where IdRadnika = 1 )
+
+/**/
+go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Predmet_Insert
+(
+	@IdPredmeta int output,
+	@DatumOtvaranja date,
+	@VrstaPredmeta varchar(20) ,
+	@NazivPredmeta varchar(100),
+	@Napomena text
+)
+as 
+	insert into Predmet(DatumOtvaranja, VrstaPredmeta, NazivPredmeta, Napomena)
+	values(@DatumOtvaranja, @VrstaPredmeta, @NazivPredmeta, @Napomena)
+	set @IdPredmeta = SCOPE_IDENTITY()
+
+	go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Predmet_Update
+(
+	@IdPredmeta int output,
+	@DatumOtvaranja date,
+	@VrstaPredmeta varchar(20) ,
+	@NazivPredmeta varchar(100),
+	@Napomena text
+)
+as 
+	update Predmet set DatumOtvaranja = @DatumOtvaranja, VrstaPredmeta = @VrstaPredmeta, NazivPredmeta = @NazivPredmeta, Napomena = @Napomena
+	where IdPredmeta = @IdPredmeta
+
+
+
+go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Akt_Insert
+(
+	@IdAkta int output,
+	@DatumPrijema date,
+	@NazivAkta varchar(64) ,
+	@Posiljalac varchar(64),
+	@IdPredmeta int
+)
+as 
+	insert into Akt(DatumPrijema, NazivAkta, Posiljalac, IdPredmeta)
+	values(@DatumPrijema, @NazivAkta, @Posiljalac, @IdPredmeta)
+	set @IdAkta = SCOPE_IDENTITY()
+
+	go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Akt_Update
+(
+	@IdAkta int output,
+	@DatumPrijema date,
+	@NazivAkta varchar(64) ,
+	@Posiljalac varchar(64),
+	@IdPredmeta int
+)
+as 
+	update Akt set DatumPrijema = @DatumPrijema, NazivAkta = @NazivAkta, Posiljalac = @Posiljalac, IdPredmeta = @IdPredmeta
+	where IdAkta = @IdAkta
+
+	go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Radnik_Insert
+(
+	@IdRadnika int output,
+	@ImeIPrezime varchar(64),
+	@Pozicija varchar(32) ,
+	@Sektor varchar(32),
+	@BrojTelefona varchar(16),
+	@DatumZaposljavanja date
+)
+as 
+	insert into Radnik(ImeIPrezime, Pozicija, Sektor, BrojTelefona, DatumZaposljavanja)
+	values(@ImeIPrezime, @Pozicija, @Sektor, @BrojTelefona, @DatumZaposljavanja)
+	set @IdRadnika = SCOPE_IDENTITY()
+
+	go /* ovo go treba jer je procedura jedini statement ovjde */
+create procedure sp_Radnik_Update
+(
+	@IdRadnika int output,
+	@ImeIPrezime varchar(64),
+	@Pozicija varchar(32) ,
+	@Sektor varchar(32),
+	@BrojTelefona varchar(16),
+	@DatumZaposljavanja date
+)
+as 
+	update Radnik set ImeIPrezime = @ImeIPrezime, Pozicija = @Pozicija, Sektor = @Sektor, BrojTelefona = @BrojTelefona, DatumZaposljavanja = @DatumZaposljavanja
+	where IdRadnika = @IdRadnika

@@ -1,0 +1,36 @@
+*******************************
+Vrsta dokumenta
+Naziv : alphanumeric (dužine 32)
+
+===============================
+*******************************
+Kandidat
+Ime: alphanumeric (dužine 16)
+Prezime: alphanumeric (dužine 16)
+Obrazovanje: alphanumeric (dužine 32)
+Broj Telefona: alphanumeric (dužine 32)
+
+===============================
+*******************************
+Pozicija
+Naziv : alphanumeric (dužine 32)
+===============================
+*******************************
+Sektor
+Naziv : alphanumeric (dužine 32)
+Broj zaposlenih: numeric (integer)
+===============================
+*******************************
+Dokument
+Naziv Dokumenta: alphanumeric (dužine 32)
+Datum Prijema: Date
+Napomena alphanumeric (dužine 16)
+===============================
+*******************************
+Radnik
+Ime: alphanumeric (dužine 16)
+Prezime: alphanumeric (dužine 16)
+Broj Telefona: alphanumeric (dužine 32)
+Datum Zapošljavanja: Date
+===============================
+

@@ -1,0 +1,13 @@
+**************************************
+Akt:
+Datum prijema: Date
+Naziv akta: alphanumeric (dužine 32)
+Pošiljalac: alphanumeric (dužine 32)
+======================================
+Radnik
+Ime i prezime: alphanumeric (dužine 32)
+Pozicija: alphanumeric (dužine 32)
+Sektor: alphanumeric (dužine 32)
+Broj Telefona alphanumeric (dužine 32)
+Datum zaposljavanja: Date
+**************************************

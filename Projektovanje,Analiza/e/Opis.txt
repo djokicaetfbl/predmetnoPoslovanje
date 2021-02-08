@@ -1,0 +1,5 @@
+Kandidat šalje zahtjev za posao (e-mail). Radnik u kompaniji prima zahtjev, obrađuje ga i šalje odgovor kandidatu. Kandidat prima obavještenje. Radnik zatim evidentira
+zahtjev u registru zahtjeva za posao.Ukoliko nije kandidat prošao u drugi krug (sljedeći krug) tu se proces zapošljavanja završava. Ukoliko je kandidat prošao u drugi
+(sljedeći krug) radnik mu šalje test provjere znanja kandidata. Kandidat prihvata test, obrađuje ga i rezultat testa šalje radniku. Radnik prihvata rezultat testa, 
+obrađuje ga, evidentira u registru urađenih testova. Na osnovu rezultata testa radnik odlučuje da li da pošalje zahtjev za posao kandidatu. Ukoliko je rezultat testa 
+loš, tu se proces zapošljavanja završava, u suprotnom radnik šalje kandidatu zahtjev za prijem u radni odnos, nakon čega se proces zapošljavanja završava.
